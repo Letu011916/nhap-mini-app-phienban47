@@ -2,6 +2,22 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+    <title>Mini App Vật lí</title>
+    ...
+    <!-- ĐOẠN 1: Khai báo biến & hàm tính điểm -->
+    <script>
+        let tongSoCau = 10;
+        let soCauDung = 0;
+        let soCauSai = 0;
+        let startTime = new Date().toISOString();
+        sessionStorage.setItem("startTime", startTime);
+        function tinhDiem() {
+            return Math.round((soCauDung / tongSoCau) * 10 * 100) / 100;
+        }
+    </script>
+</head>
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🧲⚡ Quy tắc bàn tay trái - Xác định lực từ</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -1410,7 +1426,47 @@
                 
                 document.getElementById('finalResultsPopup').classList.add('show');
             }
-            
+           <body>
+    <h1>Bài tập trắc nghiệm Vật lí</h1>
+    <div id="cauHoi">
+        <!-- Phần câu hỏi trắc nghiệm -->
+    </div>
+
+    <!-- ĐOẠN 3: Form nhập tên + nút Nộp -->
+    <div style="margin-top: 20px;">
+        <input id="tenHS" placeholder="Nhập họ tên học sinh" style="padding: 5px; width: 250px;">
+        <button onclick="guiKetQua()" style="padding: 6px 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">
+            Nộp bài
+        </button>
+    </div>
+<!-- ĐOẠN 2: Hàm gửi dữ liệu -->
+<script>
+async function guiKetQua() {
+    const start = sessionStorage.getItem("startTime") || new Date().toISOString();
+    const end = new Date().toISOString();
+    const thoiGianLam = Math.round((new Date(end) - new Date(start)) / 1000);
+    const data = {
+        ten: document.querySelector("#tenHS").value,
+        diem: tinhDiem(),
+        start: start,
+        end: end,
+        thoiGianLam: thoiGianLam + " giây",
+        soCauDung: soCauDung,
+        soCauSai: soCauSai,
+        soCauLam: tongSoCau,
+        thietBi: navigator.userAgent,
+        trinhDuyet: navigator.appName
+    };
+    await fetch("https://script.google.com/macros/s/AKfycbzP8sQPsJ3tIkCjCypfNrhKAzXUHFzESLipwWBWbmfPBNXfPG5L_USTb3uEutlcbkp5/exec", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {"Content-Type": "application/json"}
+    });
+    alert("✅ Đã ghi nhận kết quả của " + data.ten + "!");
+}
+</script>
+</body>
+</body> 
             reset() {
                 this.score = 0;
                 this.total = 0;
@@ -1495,3 +1551,4 @@
     </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'971b313b20b89cce',t:'MTc1NTYyMjY3MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
+
